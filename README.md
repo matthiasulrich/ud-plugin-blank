@@ -11,9 +11,9 @@ ud-plugin-blank/
 ├── block.json                → Block-Metadaten: Name, Scripts, Styles, Attribute
 ├── ud-plugin-blank.php       → Haupt-Plugin-Datei – lädt alle includes/*
 
-├── includes/                 → PHP-Logik (modular aufgeteilt)
+├── includes/                 
 │   ├── block.php             → Block-Registrierung
-│   ├── enqueue.php           → Lädt JS fürs Frontend (z. B. Isotope, frontend.js)
+│   ├── enqueue.php           → Nur nötig, wenn keine block.json vorhanden ist – oder für zusätzliches JS (z. B. Isotope).
 │   ├── helpers.php           → Gemeinsame Hilfsfunktionen für Block-Logik, z. B. Kontextprüfung oder Teaser-Erkennung
 │   ├── render.php            → Generiert die Blockausgabe dynamisch mit PHP – z. B. durch Abfragen mit WP_Query
 
@@ -25,7 +25,7 @@ ud-plugin-blank/
 │   │   ├── editor.js         → Block-Definition (registerBlockType etc.)
 │   │   ├── frontend.js       → JS fürs Frontend (z. B. Breakpoints, DOM)
 │   │   ├── libs/             → Externe Bibliotheken (z. B. Isotope – ungebundelt)
-│   │   ├── utils/            → Eigene JS-Helferfunktionen (optional)
+│   │   ├── utils/            → Eigene JS-Helferfunktionen
 
 ├── assets/                   → Statische Dateien (Fonts, Bilder, Icons – nicht gebundelt)
 </pre>
