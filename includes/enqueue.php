@@ -9,7 +9,7 @@
 
 defined('ABSPATH') || exit;
 
-// Editor-Assets (nur im Gutenberg-Editor)
+// Editor-Assets
 add_action('enqueue_block_editor_assets', function () {
     $base = plugin_dir_url(__DIR__);
     $path = plugin_dir_path(__DIR__);
@@ -33,7 +33,7 @@ add_action('enqueue_block_editor_assets', function () {
     */
 });
 
-// Frontend-Assets (nur im öffentlichen Bereich)
+// Frontend-Assets 
 add_action('wp_enqueue_scripts', function () {
     $base = plugin_dir_url(__DIR__);
     $path = plugin_dir_path(__DIR__);
