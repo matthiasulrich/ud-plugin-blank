@@ -26,8 +26,8 @@ module.exports = {
 		frontend: path.resolve(__dirname, "src/js/frontend.js"),
 
 		// SCSS-Dateien → werden zu CSS kompiliert
-		"editor-style": path.resolve(__dirname, "src/css/editor.scss"),
-		"frontend-style": path.resolve(__dirname, "src/css/frontend.scss"),
+		editor: path.resolve(__dirname, "src/css/editor.scss"),
+		frontend: path.resolve(__dirname, "src/css/frontend.scss"),
 	},
 	output: {
 		path: path.resolve(__dirname, "build"),
