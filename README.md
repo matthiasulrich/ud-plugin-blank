@@ -22,7 +22,9 @@ ud-plugin-blank/
 │   │   ├── editor.scss       → Gutenberg-spezifisches Styling
 │   │   ├── frontend.scss     → Styles für das Frontend
 │   ├── js/
-│   │   ├── editor.js         → Block-Definition (registerBlockType etc.)
+│   │   ├── editor.js         → Einstiegspunkt für den Editor; lädt Block-Konfiguration und Logik
+│   │   ├── edit.js           → Definiert die Editor-Oberfläche inkl. Inspector Controls
+│   │   ├── save.js           → Liefert das HTML-Markup, das im Beitrag gespeichert wird
 │   │   ├── frontend.js       → JS fürs Frontend (z. B. Breakpoints, DOM)
 │   │   ├── libs/             → Externe Bibliotheken (z. B. Isotope – ungebundelt)
 │   │   ├── utils/            → Eigene JS-Helferfunktionen
