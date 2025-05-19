@@ -39,6 +39,30 @@ Ziel: **klare Trennung von Build-Assets, PHP-Logik und Block-Konfiguration** –
 </pre>
 
 
+
+## Technische Kernpunkte
+
+### package.json
+Muss in den scripts-Einträgen (build, start) explizit auf webpack.config.js verweisen:
+<pre>
+"scripts": {
+  "build": "webpack --config webpack.config.js",
+  "start": "webpack --watch --config webpack.config.js"
+}
+</pre>
+
+### webpack.config.js
+Funktioniert nur, wenn webpack im package.json via Abhängigkeit (@wordpress/scripts oder direkt) installiert ist.
+→ Also: webpack muss als Dependency vorhanden sein, sonst schlagen Build-Skripte fehl.
+
+### block.json
+Muss exakt dieselben Pfade zu JS/CSS referenzieren, die Webpack erzeugt (build/editor.js, etc.).
+
+### ud-plugin-blank.php
+Lädt block.json über register_block_type(). Ohne die Datei wird das Plugin von WordPress nicht erkannt.
+
+
+
 ### 1. `package.json`
 Definiert Metadaten, Abhängigkeiten und Scripts für den Build-Prozess:
 
@@ -50,6 +74,8 @@ Definiert Metadaten, Abhängigkeiten und Scripts für den Build-Prozess:
 ```
 Steuert den Webpack-Workflow
 Nutzt @wordpress/scripts zur Unterstützung von Gutenberg-spezifischem JS
+
+
 2. webpack.config.js
 Konfiguriert den Build für Editor- und Frontend-Dateien aus src/:
 
