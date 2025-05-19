@@ -52,8 +52,32 @@ Muss in den scripts-Einträgen (build, start) explizit auf webpack.config.js ver
 </pre>
 
 ### webpack.config.js
-Funktioniert nur, wenn webpack im package.json via Abhängigkeit (@wordpress/scripts oder direkt) installiert ist.
-→ Also: webpack muss als Dependency vorhanden sein, sonst schlagen Build-Skripte fehl.
+<strong>Funktioniert nur, wenn Webpack (z. B. über `@wordpress/scripts`) in der `package.json` installiert ist.</strong>
+
+
+
+* In `entry` stehen **auch `.scss`-Dateien** – das ist normal.
+* Sie werden **trotzdem zu `.css` kompiliert**, nicht zu `.js`.
+
+* Beispiel:
+```js
+  entry: {
+    editor: "src/js/editor.js",
+    "editor-style": "src/css/editor.scss"
+  }
+```
+
+* Im Output entstehen:
+
+  * `build/editor.js`
+  * `build/editor-style.css`
+
+➡️ Auch wenn `.scss` wie JS eingetragen wird, erzeugt Webpack korrekt `.css`-Dateien.
+
+---
+
+Kurz, klar, GitHub-tauglich. Sag Bescheid, wenn du’s als Kommentarblock für `webpack.config.js` brauchst.
+
 
 ### block.json
 Muss exakt dieselben Pfade zu JS/CSS referenzieren, die Webpack erzeugt (build/editor.js, etc.).
