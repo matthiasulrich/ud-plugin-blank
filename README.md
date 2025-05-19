@@ -4,6 +4,8 @@ Minimalistisches Starter-Plugin für Gutenberg-Blockentwicklung mit WordPress.
 Ziel: **klare Trennung von Build-Assets, PHP-Logik und Block-Konfiguration** – ohne Ballast, aber vollständig funktionsfähig.
 
 
+
+
 ## 🧱 Zusammenspiel: Build-System & Plugin-Core
 <pre> ``` +---------------------------------------------+ | package.json | | Herzstück der JavaScript-Toolchain | | Steuert den gesamten Build-Prozess | +---------------------------------------------+ | v +---------------------------------------------+ | webpack.config.js | | Herzstück des Asset-Buildings | | Definiert, wie Code und Styles | | zu finalen Dateien verarbeitet werden | +---------------------------------------------+ | v +---------------------------------------------+ | block.json | | Block-Beschreibung für WordPress | | Definiert Name, Verhalten, Assets, etc. | | Bindeglied zwischen JS, CSS und PHP | +---------------------------------------------+ | v +---------------------------------------------+ | ud-plugin-blank.php | | Plugin-Initialisierung | | Einstiegspunkt für WordPress | | - Registriert Block via block.json | | - Lädt PHP-Logik (render.php, enqueue.php) | +---------------------------------------------+ ``` </pre>
 +--------------------------------------------+
