@@ -12,6 +12,17 @@ graph TD;
     C-->D;
 ```
 
+```mermaid
+flowchart TD
+  A[package.json\nJavaScript-Toolchain\nBuild-Skripte]
+  B[webpack.config.js\nAsset-Building\nverarbeitet Code & Styles]
+  C[block.json\nBlock-Beschreibung\nName, Verhalten, Assets]
+  D[ud-plugin-blank.php\nPlugin-Init\nlädt block.json & PHP-Logik]
+
+  A --> B --> C --> D
+```
+
+
 ---
 title: Node
 ---
