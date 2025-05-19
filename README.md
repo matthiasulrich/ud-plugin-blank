@@ -4,22 +4,16 @@ Minimalistisches Starter-Plugin für Gutenberg-Blockentwicklung mit WordPress.
 Ziel: **klare Trennung von Build-Assets, PHP-Logik und Block-Konfiguration** – ohne Ballast, aber vollständig funktionsfähig.
 
 
-```mermaid
-graph TD;
-    A-->B;
-    A-->C;
-    B-->D;
-    C-->D;
-```
 
 ```mermaid
 flowchart TD
-  A[package.json\nJavaScript-Toolchain\nBuild-Skripte]
-  B[webpack.config.js\nAsset-Building\nverarbeitet Code & Styles]
-  C[block.json\nBlock-Beschreibung\nName, Verhalten, Assets]
-  D[ud-plugin-blank.php\nPlugin-Init\nlädt block.json & PHP-Logik]
+  A[package.json<br><small>Build-Skripte & Abhängigkeiten</small>]
+  B[webpack.config.js<br><small>verarbeitet Code & Styles</small>]
+  C[block.json<br><small>Block-Definition & Assets</small>]
+  D[ud-plugin-blank.php<br><small>lädt block.json & PHP-Logik</small>]
 
   A --> B --> C --> D
+
 ```
 
 
