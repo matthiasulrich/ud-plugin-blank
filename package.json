@@ -1,0 +1,18 @@
+{
+    "_comment": "Diese Datei steuert den Build-Prozess und enthält Projektmetadaten.",
+    "name": "ud-blank-plugin",
+    "version": "1.0.0",
+    "description": "Starter-Plugin für WordPress-Entwicklung mit Webpack und Gutenberg-Unterstützung.",
+    "scripts": {
+        "build": "webpack --config webpack.config.js",
+        "start": "webpack --watch --config webpack.config.js"
+    },
+    "author": "ulrich.digital gmbh",
+    "license": "GPL-2.0-or-later",
+    "devDependencies": {
+        "@wordpress/scripts": "^30.15.0"
+    },
+    "dependencies": {
+        "@wordpress/icons": "^10.23.0"
+    }
+}

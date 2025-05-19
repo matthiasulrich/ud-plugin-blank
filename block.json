@@ -1,0 +1,19 @@
+{
+    "apiVersion": 2,
+    "name": "ud/blank-plugin",
+    "title": "Blank Plugin",
+    "category": "widgets",
+    "icon": "admin-generic",
+    "description": "Starter-Block für eigene Gutenberg-Plugins mit leerer Basisstruktur.",
+    "keywords": [
+        "block"
+    ],
+    "textdomain": "ud-blank-plugin",
+    "style": "file:./build/frontend.css",
+    "editorStyle": "file:./build/editor.css",
+    "editorScript": "file:./build/editor.js",
+    "supports": {
+        "className": true
+    },
+    "attributes": {}
+}

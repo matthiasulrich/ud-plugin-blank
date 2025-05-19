@@ -1,0 +1,10 @@
+/**
+ * editor.scss
+ *
+ * Editor-spezifische Styles für Gutenberg-Blöcke.
+ * Wird nur im Block-Editor geladen – nicht im Frontend.
+ *
+ * Hinweis:
+ * Datei wird über webpack kompiliert (→ editor-style.css)
+ * und in block.json oder enqueue.php eingebunden.
+ */
