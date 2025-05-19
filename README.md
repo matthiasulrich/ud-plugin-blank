@@ -3,11 +3,37 @@
 Minimalistisches Starter-Plugin für Gutenberg-Blockentwicklung mit WordPress.  
 Ziel: **klare Trennung von Build-Assets, PHP-Logik und Block-Konfiguration** – ohne Ballast, aber vollständig funktionsfähig.
 
+<pre>
+ud-plugin-blank/
 
+├── package.json              → Herzstück der JavaScript-Toolchain, steuert den gesamten Build-Prozess
+├── webpack.config.js         → Erweiterte Build-Konfiguration. <strong>`package.json` muss auf diese Entrypunkte verweisen</strong>.
+├── block.json                → Block-Metadaten: Name, Scripts, Styles, Attribute
+├── ud-plugin-blank.php       → Haupt-Plugin-Datei – lädt alle includes/*
 
+├── includes/                 
+│   ├── block.php             → Block-Registrierung
+│   ├── enqueue.php           → Nur nötig, wenn keine block.json vorhanden ist – oder für zusätzliches JS (z. B. Isotope).
+│   ├── helpers.php           → Gemeinsame Hilfsfunktionen für Block-Logik, z. B. Kontextprüfung oder Teaser-Erkennung
+│   ├── render.php            → Generiert die Blockausgabe dynamisch mit PHP – z. B. durch Abfragen mit WP_Query
+
+├── src/
+│   ├── css/
+│   │   ├── editor.scss       → Gutenberg-spezifisches Styling
+│   │   ├── frontend.scss     → Styles für das Frontend
+│   ├── js/
+│   │   ├── editor.js         → Einstiegspunkt für den Editor; lädt Block-Konfiguration und Logik
+│   │   ├── edit.js           → Definiert die Editor-Oberfläche inkl. Inspector Controls
+│   │   ├── save.js           → Liefert das HTML-Markup, das im Beitrag gespeichert wird
+│   │   ├── frontend.js       → JS fürs Frontend (z. B. Breakpoints, DOM)
+│   │   ├── libs/             → Externe Bibliotheken (z. B. Isotope – ungebundelt)
+│   │   ├── utils/            → Eigene JS-Helferfunktionen
+
+├── assets/                   → Statische Dateien (Fonts, Bilder, Icons – nicht gebundelt)
+</pre>
 
 ## 🧱 Zusammenspiel: Build-System & Plugin-Core
-<pre> ``` +---------------------------------------------+ | package.json | | Herzstück der JavaScript-Toolchain | | Steuert den gesamten Build-Prozess | +---------------------------------------------+ | v +---------------------------------------------+ | webpack.config.js | | Herzstück des Asset-Buildings | | Definiert, wie Code und Styles | | zu finalen Dateien verarbeitet werden | +---------------------------------------------+ | v +---------------------------------------------+ | block.json | | Block-Beschreibung für WordPress | | Definiert Name, Verhalten, Assets, etc. | | Bindeglied zwischen JS, CSS und PHP | +---------------------------------------------+ | v +---------------------------------------------+ | ud-plugin-blank.php | | Plugin-Initialisierung | | Einstiegspunkt für WordPress | | - Registriert Block via block.json | | - Lädt PHP-Logik (render.php, enqueue.php) | +---------------------------------------------+ ``` </pre>
+<pre> 
 +--------------------------------------------+
 | package.json                               |
 | Herzstück der JavaScript-Toolchain         |
@@ -38,118 +64,48 @@ Ziel: **klare Trennung von Build-Assets, PHP-Logik und Block-Konfiguration** –
 | - registriert Block via block.json         |
 | - lädt PHP-Logik (render.php, enqueue.php) |
 +--------------------------------------------+
+</pre>
 
-
-
-### 1. `package.json`
-Definiert Metadaten, Abhängigkeiten und Scripts für den Build-Prozess:
-
-```json
+## 1. package.json
+Muss in den scripts-Einträgen (build, start) explizit auf webpack.config.js verweisen:
+<pre>
 "scripts": {
   "build": "webpack --config webpack.config.js",
   "start": "webpack --watch --config webpack.config.js"
 }
-Steuert den Webpack-Workflow
-Nutzt @wordpress/scripts zur Unterstützung von Gutenberg-spezifischem JS
-2. webpack.config.js
-Konfiguriert den Build für Editor- und Frontend-Dateien aus src/:
+</pre>
 
-Kompiliert:
-src/js/editor.js → build/editor.js
-src/js/frontend.js → build/frontend.js
-src/css/editor.scss → build/editor.css
-src/css/frontend.scss → build/frontend.css
-Diese Ausgabepfade müssen exakt mit den Pfaden in block.json übereinstimmen.
-3. block.json
-Bindeglied zwischen WordPress und Build-Output – referenziert exakt die von Webpack erzeugten Dateien:
+## 2. webpack.config.js
+<strong>Funktioniert nur, wenn Webpack (z. B. über `@wordpress/scripts`) in der `package.json` installiert ist.</strong>
 
-"editorScript": "file:./build/editor.js",
-"editorStyle": "file:./build/editor.css",
-"style": "file:./build/frontend.css"
-Wird von WordPress eingelesen (über register_block_type)
-Definiert Block-Name, Kategorie, Icon, Attribute usw.
-4. ud-plugin-blank.php
-Der Einstiegspunkt für WordPress:
+* In `entry` stehen **auch `.scss`-Dateien** – das ist normal.
+* Sie werden **trotzdem zu `.css` kompiliert**, nicht zu `.js`.
 
-Lädt includes/block.php, welches register_block_type aufruft
-Dadurch wird block.json automatisch geparst
-WordPress registriert Block und lädt:
-die JS/CSS-Bundles (aus build/)
-optional den Render-Callback (aus render.php)
-Ohne dieses PHP-File wird das Plugin nicht initialisiert.
-
-## ⚙️ Architekturüberblick
-
-Dieses Plugin besteht aus **drei funktional getrennten Ebenen**:
-
-1. **Block-Definition (`block.json`)**
-2. **Frontend-/Editor-Code (`src/`)**
-3. **PHP-Logik (`includes/`, `ud-plugin-blank.php`)**
-
----
-
-## 🔄 Zusammenspiel der Komponenten
-
-```text
-WordPress -> registriert Plugin (ud-plugin-blank.php)
-             └── registriert Block (includes/block.php)
-                  └── liest block.json
-                  └── registriert Render-Callback (includes/render.php)
-
-Editor/Frontend -> lädt Assets (via includes/enqueue.php)
-                  └── Styles/JS aus /build (kompiliert aus /src via Webpack)
-
-REST/Interaktiv -> optionale API-Endpunkte (includes/api.php)
+* Beispiel:
+```js
+  entry: {
+    editor: "src/js/editor.js",
+    "editor-style": "src/css/editor.scss"
+  }
 ```
 
+* Im Output entstehen:
 
-## 📦 Projektstruktur
-ud-plugin-blank/
-├── assets/ # Statische Assets wie Fonts, Icons und Bilder
-├── includes/ # PHP-Funktionen: API, Enqueueing, Helpers, Rendering
-├── src/ # Quellcode (JS, SCSS) für Gutenberg-Editor & Frontend
-├── build/ # Build-Ausgabe durch Webpack
-├── ud-plugin-blank.php # Haupt-Plugin-Datei (Entry-Point für WordPress)
-├── block.json # Gutenberg-Blockdefinition
-├── webpack.config.js # Webpack-Konfiguration
-├── package.json # Projekt-Metadaten und Scripts
+  * `build/editor.js`
+  * `build/editor-style.css`
 
 
-## 🚀 Schnellstart
+## 3. block.json
+Muss exakt dieselben Pfade zu JS/CSS referenzieren, die Webpack erzeugt (build/editor.js, etc.).
 
-### Voraussetzungen
+Beispiel:
+```js
+    "editorStyle": "file:./build/editor.css",
+    "style": "file:./build/frontend.css",
+    "editorScript": "file:./build/editor.js",
+    "script": "file:./build/frontend.js",
+```
 
-- Node.js (>= 14.x)
-- WordPress-Installation (lokal oder remote)
-
-### Installation
-
-```bash
-npm install```
-
-#### Entwicklung starten
-```npm run start```
-
-#### Für Produktion bauen
-```npm run build```
-
-
-
-### package.json
-
-Diese Datei gehört zum Entwicklungs-Setup und definiert:
-- Name, Version, Lizenz
-- Build-Skripte (npm run build)
-- Abhängigkeiten für WordPress- und Webpack-Module
-
-Wird von WordPress selbst nicht verwendet
-
-
-/**
- * Utility-Funktionen für das Plugin.
- *
- * In diesem Verzeichnis liegen kleine Hilfsfunktionen,
- * die mehrfach im Editor- oder Frontend-Code verwendet werden können.
- *
- * Beispiel: Formatierungen, DOM-Helfer, Filterlogik etc.
- */
+## 4. ud-plugin-blank.php
+Diese Datei ist der Einstiegspunkt des Plugins und wird von WordPress geladen.  
+Sie selbst registriert keinen Block, sondern lädt alle Dateien im `includes/`-Ordner.

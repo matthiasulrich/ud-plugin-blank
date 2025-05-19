@@ -16,5 +16,10 @@
     "supports": {
         "className": true
     },
-    "attributes": {}
+    "attributes": {
+        "content": {
+            "type": "string",
+            "default": ""
+        }
+    }
 }
