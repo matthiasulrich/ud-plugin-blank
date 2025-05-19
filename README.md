@@ -4,37 +4,30 @@ Minimalistisches Starter-Plugin für Gutenberg-Blockentwicklung mit WordPress.
 Ziel: **klare Trennung von Build-Assets, PHP-Logik und Block-Konfiguration** – ohne Ballast, aber vollständig funktionsfähig.
 
 <pre>
-ud-loop/
-├── .gitattributes            → Git-Attribute, z. B. für Zeilenenden
-├── .gitignore                → Ignoriert z. B. node_modules, build/, ZIPs
-├── README.md                 → Projektbeschreibung & Setup-Hinweise
+ud-plugin-blank/
 
+├── package.json              → Herzstück der JavaScript-Toolchain, steuert den gesamten Build-Prozess
+├── webpack.config.js         → Erweiterte Build-Konfiguration. <strong>`package.json` muss auf diese Entrypunkte verweisen</strong>.
 ├── block.json                → Block-Metadaten: Name, Scripts, Styles, Attribute
-
-├── assets/                   → Statische Dateien (Fonts, Bilder, Icons – nicht gebundelt)
+├── ud-plugin-blank.php       → Haupt-Plugin-Datei – lädt alle includes/*
 
 ├── includes/                 → PHP-Logik (modular aufgeteilt)
-│   ├── api.php               → REST-API-Endpunkte (z. B. für Seiten mit Kindern)
-│   ├── block.php             → Block-Registrierung inkl. Custom Styles
-│   ├── enqueue.php           → Lädt JS fürs Frontend (Isotope, frontend.js)
-│   ├── helpers.php           → Kontextvererbung, Blockanalyse, Teaser-Erkennung
-│   └── render.php            → Dynamische Render-Logik mit WP_Query + HTML-Ausgabe
+│   ├── block.php             → Block-Registrierung
+│   ├── enqueue.php           → Lädt JS fürs Frontend (z. B. Isotope, frontend.js)
+│   ├── helpers.php           → Gemeinsame Hilfsfunktionen für Block-Logik, z. B. Kontextprüfung oder Teaser-Erkennung
+│   ├── render.php            → Generiert die Blockausgabe dynamisch mit PHP – z. B. durch Abfragen mit WP_Query
 
-├── package.json              → NPM-Konfiguration mit Build-/Start-Skripten
-
-├── src/                      → Quellverzeichnis für Build (JS + CSS)
+├── src/
 │   ├── css/
 │   │   ├── editor.scss       → Gutenberg-spezifisches Styling
-│   │   └── frontend.scss     → Styles für die Ausgabe im Frontend
+│   │   ├── frontend.scss     → Styles für das Frontend
 │   ├── js/
 │   │   ├── editor.js         → Block-Definition (registerBlockType etc.)
-│   │   ├── frontend.js       → JS fürs Frontend (z. B. Breakpoints)
-│   │   ├── libs/             → Externe Bibliotheken (z. B. Isotope – nicht gebundelt)
-│   │   └── utils/            → Eigene JS-Helferfunktionen (optional)
+│   │   ├── frontend.js       → JS fürs Frontend (z. B. Breakpoints, DOM)
+│   │   ├── libs/             → Externe Bibliotheken (z. B. Isotope – ungebundelt)
+│   │   ├── utils/            → Eigene JS-Helferfunktionen (optional)
 
-├── ud-loop.php               → Plugin-Hauptdatei, lädt alle includes/*
-├── webpack.config.js         → Erweiterung der Standard-Build-Konfiguration
-*/
+├── assets/                   → Statische Dateien (Fonts, Bilder, Icons – nicht gebundelt)
 </pre>
 
 ## 🧱 Zusammenspiel: Build-System & Plugin-Core
