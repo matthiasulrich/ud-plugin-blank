@@ -47,6 +47,7 @@ Definiert Metadaten, Abhängigkeiten und Scripts für den Build-Prozess:
   "build": "webpack --config webpack.config.js",
   "start": "webpack --watch --config webpack.config.js"
 }
+```
 Steuert den Webpack-Workflow
 Nutzt @wordpress/scripts zur Unterstützung von Gutenberg-spezifischem JS
 2. webpack.config.js
