@@ -4,39 +4,8 @@ Minimalistisches Starter-Plugin für Gutenberg-Blockentwicklung mit WordPress.
 Ziel: **klare Trennung von Build-Assets, PHP-Logik und Block-Konfiguration** – ohne Ballast, aber vollständig funktionsfähig.
 
 
-
-```mermaid
-flowchart TD
-  A[package.json<br><small>Build-Skripte & Abhängigkeiten</small>]
-  B[webpack.config.js<br><small>verarbeitet Code & Styles</small>]
-  C[block.json<br><small>Block-Definition & Assets</small>]
-  D[ud-plugin-blank.php<br><small>lädt block.json & PHP-Logik</small>]
-
-  A --> B --> C --> D
-
-```
-
-
----
-title: Node
----
-flowchart LR
-    id
-
-
-flowchart TD
-    A[Christmas] -->|Get money| B(Go shopping)
-    B --> C{Let me think}
-    C -->|One| D[Laptop]
-    C -->|Two| E[iPhone]
-    C -->|Three| F[fa:fa-car Car]
-  
-
-```mermaid flowchart TD A[package.json<br>Herzstück der JavaScript-Toolchain<br>Steuert Build-Prozess] B[webpack.config.js<br>Herzstück Asset-Building<br>Verarbeitet Code & Styles] C[block.json<br>Block-Beschreibung für WordPress<br>Definiert Name, Verhalten, Assets] D[ud-plugin-blank.php<br>Plugin-Initialisierung<br>Registriert Block & lädt PHP-Logik] A --> B --> C --> D ```
-
-
 ## 🧱 Zusammenspiel: Build-System & Plugin-Core
-<pre> ``` +---------------------------------------------+ | package.json | | Herzstück der JavaScript-Toolchain | | Steuert den gesamten Build-Prozess | +---------------------------------------------+ | v +---------------------------------------------+ | webpack.config.js | | Herzstück des Asset-Buildings | | Definiert, wie Code und Styles | | zu finalen Dateien verarbeitet werden | +---------------------------------------------+ | v +---------------------------------------------+ | block.json | | Block-Beschreibung für WordPress | | Definiert Name, Verhalten, Assets, etc. | | Bindeglied zwischen JS, CSS und PHP | +---------------------------------------------+ | v +---------------------------------------------+ | ud-plugin-blank.php | | Plugin-Initialisierung | | Einstiegspunkt für WordPress | | - Registriert Block via block.json | | - Lädt PHP-Logik (render.php, enqueue.php) | +---------------------------------------------+ ``` 
+<pre> 
 +--------------------------------------------+
 | package.json                               |
 | Herzstück der JavaScript-Toolchain         |
