@@ -11,6 +11,14 @@ flowchart LR
     id
 
 
+flowchart TD
+    A[Christmas] -->|Get money| B(Go shopping)
+    B --> C{Let me think}
+    C -->|One| D[Laptop]
+    C -->|Two| E[iPhone]
+    C -->|Three| F[fa:fa-car Car]
+  
+
 ```mermaid flowchart TD A[package.json<br>Herzstück der JavaScript-Toolchain<br>Steuert Build-Prozess] B[webpack.config.js<br>Herzstück Asset-Building<br>Verarbeitet Code & Styles] C[block.json<br>Block-Beschreibung für WordPress<br>Definiert Name, Verhalten, Assets] D[ud-plugin-blank.php<br>Plugin-Initialisierung<br>Registriert Block & lädt PHP-Logik] A --> B --> C --> D ```
 
 
