@@ -120,3 +120,34 @@ Aktuell:
 ## 4. ud-plugin-blank.php
 Diese Datei ist der Einstiegspunkt des Plugins und wird von WordPress geladen.  
 Sie selbst registriert keinen Block, sondern lädt alle Dateien im `includes/`-Ordner.
+
+
+
+
+
+# 🚀 Schnellstart 
+
+1. **Repository klonen oder herunterladen**
+
+   ```bash
+   git clone https://github.com/ulrich-digital/Blank-Plugin_Boilerplate.git
+   cd dein-plugin
+   ```
+
+2. **Abhängigkeiten installieren**
+
+   ```bash
+   npm install
+   ```
+
+3. **Entwicklung starten (mit automatischem Build bei Änderungen)**
+
+   ```bash
+   npm start
+   ```
+
+4. **Produktionsbuild erstellen (wenn alles fertig ist)**
+
+   ```bash
+   npm run build
+   ```
