@@ -11,10 +11,10 @@
         "block"
     ],
     "textdomain": "ud-blank-plugin",
-    "editorStyle": "file:./build/editor.css",
-    "style": "file:./build/frontend.css",
-    "editorScript": "file:./build/editor.js",
-    "script": "file:./build/frontend.js",
+    "editorStyle": "file:./build/editor-style.css",
+    "style": "file:./build/frontend-style.css",
+    "editorScript": "file:./build/editor-script.js",
+    "script": "file:./build/frontend-script.js",
     "supports": {
         "className": true
     },

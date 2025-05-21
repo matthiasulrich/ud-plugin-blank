@@ -1,4 +1,4 @@
-# UD Plugin Blank
+# Blank Plugin Boilerplate
 
 Minimalistisches Starter-Plugin für Gutenberg-Blockentwicklung mit WordPress.  
 Ziel: **klare Trennung von Build-Assets, PHP-Logik und Block-Konfiguration** – ohne Ballast, aber vollständig funktionsfähig.
