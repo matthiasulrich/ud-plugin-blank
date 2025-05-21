@@ -12,7 +12,8 @@ ud-plugin-blank/
 ├── ud-plugin-blank.php       → Haupt-Plugin-Datei – lädt alle includes/*
 
 ├── includes/                 
-│   ├── block.php             → Block-Registrierung
+│   ├── api.php            → Generiert die Blockausgabe dynamisch mit PHP – z. B. durch Abfragen mit WP_Query
+│   ├── block-register.php             → Block-Registrierung
 │   ├── enqueue.php           → Nur nötig, wenn keine block.json vorhanden ist – oder für zusätzliches JS (z. B. Isotope).
 │   ├── helpers.php           → Gemeinsame Hilfsfunktionen für Block-Logik, z. B. Kontextprüfung oder Teaser-Erkennung
 │   ├── render.php            → Generiert die Blockausgabe dynamisch mit PHP – z. B. durch Abfragen mit WP_Query
@@ -81,29 +82,39 @@ Muss in den scripts-Einträgen (build, start) explizit auf webpack.config.js ver
 * In `entry` stehen **auch `.scss`-Dateien** – das ist normal.
 * Sie werden **trotzdem zu `.css` kompiliert**, nicht zu `.js`.
 
+
 * Beispiel:
+
 ```js
   entry: {
-    editor: "src/js/editor.js",
-    "editor-style": "src/css/editor.scss"
+    "editor-script": "src/js/editor.js",
+    "editor-style": "src/css/editor.scss",
+    "frontend-script": "src/js/frontend.js",
+    "frontend-style": "src/css/frontend.scss"
   }
 ```
 
 * Im Output entstehen:
 
-  * `build/editor.js`
+  * `build/editor-script.js`
   * `build/editor-style.css`
+  * `build/frontend-script.js`
+  * `build/frontend-style.css`
+
 
 
 ## 3. block.json
 Muss exakt dieselben Pfade zu JS/CSS referenzieren, die Webpack erzeugt (build/editor.js, etc.).
 
-Beispiel:
-```js
-    "editorStyle": "file:./build/editor.css",
-    "style": "file:./build/frontend.css",
-    "editorScript": "file:./build/editor.js",
-    "script": "file:./build/frontend.js",
+Aktuell:
+
+```json
+{
+  "editorStyle": "file:./build/editor-style.css",
+  "style": "file:./build/frontend-style.css",
+  "editorScript": "file:./build/editor-script.js",
+  "script": "file:./build/frontend-script.js"
+}
 ```
 
 ## 4. ud-plugin-blank.php
